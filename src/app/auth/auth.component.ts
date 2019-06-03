@@ -4,7 +4,7 @@ import {AuthService} from './auth.service';
 import {Device} from '@ionic-native/device/ngx';
 import {Router} from '@angular/router';
 import {LoadingController} from '@ionic/angular';
-import {LoadingService} from '../loading.service';
+import {LoadingService} from '../services/loading.service';
 
 
 @Component({
