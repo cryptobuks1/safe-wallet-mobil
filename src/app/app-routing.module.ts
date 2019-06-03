@@ -4,12 +4,19 @@ import {AuthGuard} from './auth/auth.guard';
 
 const routes: Routes = [
     {
+        path: '',
+        redirectTo: 'home',
+        pathMatch: 'full',
+        canActivate: [AuthGuard],
+    },
+    {
         path: 'auth',
         loadChildren: './auth/auth.module#AuthModule',
     },
     {
         path: 'home',
         loadChildren: './home/home.module#HomePageModule',
+        canActivate: [AuthGuard]
     },
     {
         path: 'list',

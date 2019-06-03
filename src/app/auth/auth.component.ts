@@ -56,7 +56,7 @@ export class AuthComponent implements OnInit {
                                 this.showCredentialsError = false;
                             }, 4000);
                         }
-                        console.log('error');
+                        console.log('error', error);
                     }
                 );
             });

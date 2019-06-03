@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
 import {Storage} from '@ionic/storage';
-import {BehaviorSubject, Observable} from 'rxjs';
+import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
+import {MySubject} from '../share/my-subject';
 
 @Injectable({
     providedIn: 'root'
@@ -10,14 +11,10 @@ import {environment} from '../../environments/environment';
 export class AuthService {
 
     credential: any;
-    loadUser = new BehaviorSubject(null);
+    loadUser = new MySubject();
 
     constructor(private storage: Storage, private http: HttpClient) {
 
-    }
-
-    get user(): any {
-        return this.credential;
     }
 
     set user(user: any) {
@@ -50,6 +47,8 @@ export class AuthService {
 
     async clear() {
         await this.storage.clear();
+        this.credential = null;
+        this.loadUser.next(this.credential);
     }
 
     register(values: any) {

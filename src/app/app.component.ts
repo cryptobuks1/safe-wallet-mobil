@@ -32,33 +32,23 @@ export class AppComponent implements OnInit {
                 private service: AuthService,
                 private splashScreen: SplashScreen,
                 private statusBar: StatusBar) {
-        this.initializeApp();
-
+        this.initializeApp().then();
     }
 
-    initializeApp() {
-        this.platform.ready().then(() => {
-            this.statusBar.styleDefault();
-            this.splashScreen.hide();
-        });
+    async initializeApp() {
+        await this.platform.ready();
+        this.statusBar.styleDefault();
+        this.user = await this.service.loadingUser();
+        this.splashScreen.hide();
     }
 
 
     ngOnInit(): void {
-
         this.service.userObservable().subscribe( ( data: any) => {
-            console.log('------------->>>', data )
             this.user = data;
         });
-        this.loadUser().then(user => {
-            if (user) {
-                this.route.navigateByUrl('/home').then();
-            } else {
-                this.route.navigateByUrl('/auth/login').then();
-            }
-        });
     }
-
+    /*
     async loadUser() {
         const loading = await this.loadingController.create({
             message: 'Please wait...',
@@ -69,5 +59,5 @@ export class AppComponent implements OnInit {
         await loading.dismiss();
         return this.user;
     }
-
+    */
 }
