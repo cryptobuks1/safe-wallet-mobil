@@ -1,0 +1,47 @@
+
+.invalid-feedback {
+  color: red;
+  font-size: smaller;
+}
+
+.container {
+  height: 100%;
+
+  .show-credentials-error {
+    padding: 15px;
+    text-align: justify;
+    background: white;
+    color: #da0606;
+    margin-top: 50px;
+    margin-right: 10%;
+    margin-left: 10%;
+    font-weight: bold;
+  }
+
+  .form-login {
+    padding-top: 10%;
+    padding-right: 5%;
+    padding-left: 5%;
+
+    ion-label {
+      // color: #fdfdfd;
+      font-weight: bold;
+    }
+
+    .btn-view-password {
+      z-index: 2;
+      position: absolute;
+      top: 25px;
+      right: 27px;
+      background: transparent;
+      color: #0724f7;
+
+      ion-icon {
+        display: inline-block;
+        font-size: 1.8em;
+      }
+    }
+
+  }
+
+}

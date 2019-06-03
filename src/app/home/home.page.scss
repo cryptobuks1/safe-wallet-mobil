@@ -2,3 +2,14 @@
   max-height: 35vh;
   overflow: hidden;
 }
+
+.fab-list {
+  font-size: 14px;
+  font-weight: bold;
+  display: block;
+  ion-label{
+    right: 56px;
+    bottom: 18px;
+    position: absolute;
+  }
+}

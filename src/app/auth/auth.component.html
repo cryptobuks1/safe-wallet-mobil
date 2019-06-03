@@ -1,0 +1,58 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>SAFE WALLET</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <div class="container">
+        <form (ngSubmit)="onSubmit()" [formGroup]="formLogin" class="form-login">
+            <ion-item lines="none">
+                <ion-label position="floating">EMAIL:
+                    <p *ngIf="errorEmail()" class="invalid-feedback">
+                        <span *ngIf="formLogin.get('email').getError('required')"> required </span>
+                        <span *ngIf="formLogin.get('email').getError('email')"> invalid format</span>
+                    </p>
+                </ion-label>
+                <ion-input formControlName="email" name="email" placeholder="Enter Email" type="text"></ion-input>
+            </ion-item>
+            <ion-item lines="none">
+                <ion-label position="floating">PASSWORD :
+                    <p *ngIf="errorPassword()" class="invalid-feedback">
+                        <span *ngIf="formLogin.get('password').getError('required')"> required </span>
+                        <span *ngIf="formLogin.get('password').getError('minlength')">
+                            Enter at least 6 characters
+                        </span><
+                    </p>
+                </ion-label>
+                <ion-input [type]="typePassword" formControlName="password" name="password"
+                           placeholder="Enter Password"></ion-input>
+                <button (click)="typePassword = (typePassword == 'password')? 'text':'password'"
+                        class="btn-view-password"
+                        item-end>
+                    <ion-icon *ngIf="typePassword == 'password'" name="eye"></ion-icon>
+                    <ion-icon *ngIf="typePassword == 'text'" name="eye-off"></ion-icon>
+                </button>
+            </ion-item>
+            <ion-row margin-top="10px">
+                <ion-col>
+                    <ion-button [disabled]="!formLogin.valid" color="primary" expand="block" type="submit">
+                        Login
+                        <ion-icon *ngIf="formLogin.valid" float-right name="checkmark-circle-outline"></ion-icon>
+                    </ion-button>
+                    <ion-button color="secondary" expand="block" margin-top="10px" routerDirection="root"
+                                routerLink="/auth/register">
+                        Register
+                    </ion-button>
+                </ion-col>
+            </ion-row>
+        </form>
+
+        <div *ngIf="showCredentialsError" class="show-credentials-error">
+            Email/password invalid!
+        </div>
+
+    </div>
+
+</ion-content>

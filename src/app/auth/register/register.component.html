@@ -1,0 +1,73 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>SAFE WALLET</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <div>
+        <form (ngSubmit)="onSubmit()" [formGroup]="formRegister">
+            <ion-item lines="none">
+                <ion-label position="floating">
+                    NAME :
+                    <p *ngIf="errorName()" class="invalid-feedback">
+                        <span *ngIf="formRegister.get('name').getError('required')"> required </span>
+                    </p>
+                </ion-label>
+                <ion-input formControlName="name" placeholder="Enter Name" type="text"></ion-input>
+            </ion-item>
+
+            <ion-item lines="none">
+                <ion-label position="floating">
+                    Email :
+                    <p *ngIf="errorEmail()" class="invalid-feedback">
+                        <span *ngIf="formRegister.get('email').getError('required')"> required</span>
+                        <span *ngIf="formRegister.get('email').getError('email')"> format invalid</span>
+                        <span *ngIf="formRegister.get('email').getError('duplicate_email')"> duplicate.</span>
+                    </p>
+                </ion-label>
+                <ion-input formControlName="email" placeholder="Enter Email" type="text"></ion-input>
+            </ion-item>
+            <ion-item lines="none">
+                <ion-label position="floating">
+                    Password :
+                    <p *ngIf="errorPassword()" class="invalid-feedback">
+                        <span *ngIf="formRegister.get('password').getError('required')"> required </span>
+                        <span *ngIf="formRegister.get('password').getError('password_confirmed')"> do not match</span>
+                        <span *ngIf="formRegister.get('password').getError('minlength')"> Enter at least 6 characters </span>
+                    </p>
+                </ion-label>
+                <ion-input [type]="typePassword" formControlName="password" placeholder="Enter password"
+                           required></ion-input>
+                <button (click)="typePassword = (typePassword == 'password')? 'text':'password'"
+                        class="btn-view-password"
+                        item-end>
+                    <ion-icon *ngIf="typePassword == 'password'" name="eye"></ion-icon>
+                    <ion-icon *ngIf="typePassword == 'text'" name="eye-off"></ion-icon>
+                </button>
+            </ion-item>
+            <ion-item lines="none">
+                <ion-label position="floating">
+                    Repeat :
+                    <p *ngIf="errorPasswordConfirmation()" class="invalid-feedback">
+                        <span *ngIf="formRegister.get('password_confirmation').getError('required')"> required</span>
+                        <span *ngIf="formRegister.get('password_confirmation').getError('password_confirmed')"> do not match</span>
+                        <span *ngIf="formRegister.get('password_confirmation').getError('minlength')"> Enter at least 6 characters</span>
+                    </p>
+                </ion-label>
+                <ion-input [type]="typePassword" formControlName="password_confirmation"
+                           placeholder="Repeat password"></ion-input>
+            </ion-item>
+
+            <ion-row margin-top="10px">
+                <ion-col>
+                    <ion-button [disabled]="formRegister.invalid" color="primary" expand="block" type="submit">
+                        Register
+                        <ion-icon *ngIf="formRegister.valid" float-right name="checkmark-circle-outline"></ion-icon>
+                    </ion-button>
+                </ion-col>
+            </ion-row>
+
+        </form>
+    </div>
+</ion-content>
