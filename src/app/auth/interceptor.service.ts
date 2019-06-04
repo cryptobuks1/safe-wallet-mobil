@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {AuthService} from './auth.service';
+import {AuthService} from '../services/auth.service';
 import {tap} from 'rxjs/operators';
 
 @Injectable({
@@ -28,7 +28,7 @@ export class InterceptorService implements HttpInterceptor {
         req = req.clone({headers: req.headers.set('Accept', 'application/json')});
 
         return next.handle(req).pipe(tap((data) => {
-            console.log(' Petision Gooo ')
+            console.log( data);
         }, (error) => {
             if (error.status === 401 && this.service.isAuthenticated) {
                 console.log(' TOKEN ERROR ');

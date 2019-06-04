@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {LoadingController} from '@ionic/angular';
-import {AuthService} from '../auth.service';
+import {AuthService} from '../../services/auth.service';
 import {Device} from '@ionic-native/device/ngx';
 import {LoadingService} from '../../services/loading.service';
 import {Router} from '@angular/router';

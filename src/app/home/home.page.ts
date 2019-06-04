@@ -1,37 +1,64 @@
-import {Component, OnInit} from '@angular/core';
-import {AuthService} from '../auth/auth.service';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {AuthService} from '../services/auth.service';
 import {LoadingService} from '../services/loading.service';
 import {Router} from '@angular/router';
-import {Observable, Subscription} from 'rxjs';
+import {Subscription} from 'rxjs';
 import {BalanceService} from '../services/balance.service';
+import {PaymentService} from '../services/payment.service';
+import {TransactionService} from '../services/transaction.service';
 
 @Component({
     selector: 'app-home',
     templateUrl: 'home.page.html',
     styleUrls: ['home.page.scss'],
 })
-export class HomePage implements OnInit {
+export class HomePage implements OnInit, OnDestroy {
 
     balance: any;
     balanceSubscription: Subscription;
 
+    payments: any [];
+    paymentsSubscription: Subscription;
+
+    transactions: any [];
+    transactionsSubscription: Subscription;
+
+
     constructor(private authService: AuthService,
-                private service: BalanceService,
+                private serviceBalance: BalanceService,
+                private servicePayment: PaymentService,
+                private serviceTransaction: TransactionService,
                 private loading: LoadingService,
                 private rotuer: Router) {
     }
 
     ngOnInit(): void {
 
-        this.balanceSubscription = this.service.balance().subscribe(data => {
+        this.balanceSubscription = this.serviceBalance.balance().subscribe((data: any) => {
             this.balance = data.data;
-        }, () => {
+        }, (error) => {
+            console.error(error);
+        });
+
+        this.paymentsSubscription = this.servicePayment.payments().subscribe((data: any) => {
+            this.payments = data;
+        }, (error) => {
+            console.error(error);
+        });
+
+        this.transactionsSubscription = this.serviceTransaction.transactions().subscribe((data: any) => {
+            this.transactions = data;
+        }, (error) => {
+            console.error(error);
         });
 
     }
 
-    logout() {
+    transfer() {
 
+    }
+
+    logout() {
         this.loading.loading({
             message: 'PROCESS'
         }).then(load => {
@@ -49,6 +76,12 @@ export class HomePage implements OnInit {
     async clear() {
         await this.authService.clear();
         await this.rotuer.navigateByUrl('/auth/login').then();
+    }
+
+    ngOnDestroy(): void {
+        this.balanceSubscription.unsubscribe();
+        this.paymentsSubscription.unsubscribe();
+        this.transactionsSubscription.unsubscribe();
     }
 
 

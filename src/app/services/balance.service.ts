@@ -13,17 +13,17 @@ export class BalanceService {
 
 
     /**
-     *  @return {di, balance  } get balance
+     *  @return get balance
      */
     public balance(): Observable<any> {
         return this.http.get(environment.server + '/balance');
     }
 
     /**
-     *  @param { amount } amount to increase balance
+     *  @param  amount to increase balance
      */
-    public increase({amount}): Observable<any> {
-        return this.http.post(environment.server + '/balance', value);
+    public increase(amount): Observable<any> {
+        return this.http.post(environment.server + '/balance', amount);
     }
 
 

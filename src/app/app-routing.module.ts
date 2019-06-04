@@ -23,6 +23,11 @@ const routes: Routes = [
         loadChildren: './list/list.module#ListPageModule',
         canActivate: [AuthGuard]
     },
+    {
+        path: 'transfer',
+        loadChildren: './transfer/transfer.module#TransferPageModule',
+        canActivate: [AuthGuard]
+    },
 ];
 
 @NgModule({

@@ -10,21 +10,25 @@ import {MySubject} from '../share/my-subject';
 })
 export class AuthService {
 
-    credential: any;
     loadUser = new MySubject();
+    private _USER: any;
 
     constructor(private storage: Storage, private http: HttpClient) {
 
     }
 
+    get user(): any {
+        return this._USER;
+    }
+
     set user(user: any) {
-        this.credential = user;
-        this.storage.set('app-token', this.credential).then();
-        this.loadUser.next(this.credential);
+        this._USER = user;
+        this.storage.set('app-token', this._USER).then();
+        this.loadUser.next(this._USER);
     }
 
     get isAuthenticated() {
-        return !!this.credential;
+        return !!this._USER;
     }
 
     userObservable(): Observable<any> {
@@ -32,9 +36,9 @@ export class AuthService {
     }
 
     async loadingUser() {
-        this.credential = await this.storage.get('app-token');
-        this.loadUser.next(this.credential);
-        return this.credential;
+        this._USER = await this.storage.get('app-token');
+        this.loadUser.next(this._USER);
+        return this._USER;
     }
 
     login(value): Observable<any> {
@@ -47,8 +51,8 @@ export class AuthService {
 
     async clear() {
         await this.storage.clear();
-        this.credential = null;
-        this.loadUser.next(this.credential);
+        this._USER = null;
+        this.loadUser.next(this._USER);
     }
 
     register(values: any) {

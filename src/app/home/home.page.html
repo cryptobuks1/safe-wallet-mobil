@@ -25,9 +25,16 @@
 
     <ion-fab horizontal="end" vertical="bottom">
         <ion-fab-button size="small">
-            <ion-icon name="build"></ion-icon>
+            <ion-icon name="card"></ion-icon>
         </ion-fab-button>
         <ion-fab-list side="top">
+            <div class="fab-list">
+                <ion-label>Transfer</ion-label>
+                <ion-fab-button (click)="transfer()" color="primary" size="small" routerDirection="root"
+                                routerLink="/transfer">
+                    <ion-icon ios="ios-send" md="md-send"></ion-icon>
+                </ion-fab-button>
+            </div>
             <div class="fab-list">
                 <ion-label>Logout</ion-label>
                 <ion-fab-button (click)="logout()" color="primary" size="small">
@@ -38,6 +45,9 @@
 
     </ion-fab>
 
+
+
+
 </ion-content>
 
 <ion-footer>
@@ -45,7 +55,7 @@
     <ion-toolbar>
         <ion-row>
             {{ balanceSubscription.closed }}
-            <ion-col text-right> Balance: $4.000,00</ion-col>
+            <ion-col text-right> Balance: {{balance?.balance | currency }}</ion-col>
         </ion-row>
     </ion-toolbar>
 </ion-footer>
