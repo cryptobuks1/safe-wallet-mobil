@@ -23,6 +23,7 @@ export class HomePage implements OnInit, OnDestroy {
     transactions: any [];
     transactionsSubscription: Subscription;
 
+    user:any;
 
     constructor(private authService: AuthService,
                 private serviceBalance: BalanceService,
@@ -51,6 +52,9 @@ export class HomePage implements OnInit, OnDestroy {
         }, (error) => {
             console.error(error);
         });
+
+        this.user = this.authService.user;
+        console.log(this.user);
 
     }
 

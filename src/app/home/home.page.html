@@ -10,6 +10,25 @@
 </ion-header>
 
 <ion-content>
+
+    <ion-card class="welcome-card" *ngIf="user">
+        <ion-card-header>
+            <ion-card-title>{{user.name}}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+            <div>
+                <span> <b>{{user.code}}</b></span>
+                <ion-button float-right>
+                    <ion-icon name="copy"></ion-icon>
+                </ion-button>
+                <ion-button float-right>
+                     <ion-icon name="share"></ion-icon>
+                </ion-button>
+            </div>
+            <small>utiliza este codigo para hacer transferencias</small>
+            </ion-card-content>
+    </ion-card>
+
     <ion-card class="welcome-card">
         <ion-img src="/assets/shapes.svg"></ion-img>
         <ion-card-header>
@@ -44,17 +63,11 @@
         </ion-fab-list>
 
     </ion-fab>
-
-
-
-
 </ion-content>
 
 <ion-footer>
-
     <ion-toolbar>
         <ion-row>
-            {{ balanceSubscription.closed }}
             <ion-col text-right> Balance: {{balance?.balance | currency }}</ion-col>
         </ion-row>
     </ion-toolbar>

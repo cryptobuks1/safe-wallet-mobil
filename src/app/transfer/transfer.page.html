@@ -6,4 +6,57 @@
 
 <ion-content>
 
+    <ion-card class="welcome-card" *ngIf="user">
+        <ion-card-header>
+            <ion-card-title>{{user.name}}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+
+            <div>
+                <form (ngSubmit)="onSubmit()" [formGroup]="formRegister">
+                    <ion-item lines="none">
+                        <ion-label position="floating">
+                            CODE :
+                            <p *ngIf="errorCode()" class="invalid-feedback">
+                                <span *ngIf="formRegister.get('code').getError('required')"> required </span>
+                            </p>
+                        </ion-label>
+                        <ion-input formControlName="code" placeholder="Enter Code" type="text"></ion-input>
+                    </ion-item>
+
+                    <ion-item lines="none">
+                        <ion-label position="floating">
+                            AMOUNT :
+                            <p *ngIf="errorAmount()" class="invalid-feedback">
+                                <span *ngIf="formRegister.get('amount').getError('required')"> required </span>
+                            </p>
+                        </ion-label>
+                        <ion-input formControlName="amount" placeholder="Enter Amount" type="number" min="0"></ion-input>
+                    </ion-item>
+
+                    <ion-item lines="none">
+                        <ion-label position="floating">
+                            COMMENTARY :
+                            <p *ngIf="errorCommentary()" class="invalid-feedback">
+                                <span *ngIf="formRegister.get('commentary').getError('required')"> required </span>
+                            </p>
+                        </ion-label>
+                        <ion-input formControlName="code" placeholder="Write Something to rememeber" type="text"></ion-input>
+                    </ion-item>
+
+                    <ion-row margin-top="10px">
+                        <ion-col>
+                            <ion-button [disabled]="formRegister.invalid" color="primary" expand="block" type="submit">
+                                Register
+                                <ion-icon *ngIf="formRegister.valid" float-right name="checkmark-circle-outline"></ion-icon>
+                            </ion-button>
+                        </ion-col>
+                    </ion-row>
+        
+                </form>
+            </div>
+
+        </ion-card-content>
+    </ion-card>
+
 </ion-content>
