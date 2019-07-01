@@ -1,12 +1,13 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {AuthService} from '../services/auth.service';
-import {LoadingService} from '../services/loading.service';
-import {Router} from '@angular/router';
-import {Subscription} from 'rxjs';
-import {BalanceService} from '../services/balance.service';
-import {PaymentService} from '../services/payment.service';
-import {TransactionService} from '../services/transaction.service';
-import {ClipboardService} from 'ngx-clipboard'
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AuthService } from '../services/auth.service';
+import { LoadingService } from '../services/loading.service';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { BalanceService } from '../services/balance.service';
+import { PaymentService } from '../services/payment.service';
+import { TransactionService } from '../services/transaction.service';
+import { ClipboardService } from 'ngx-clipboard'
+import { ToastService } from '../services/toast.service';
 
 @Component({
     selector: 'app-home',
@@ -18,21 +19,22 @@ export class HomePage implements OnInit, OnDestroy {
     balance: any;
     balanceSubscription: Subscription;
 
-    payments: any [];
+    payments: any[];
     paymentsSubscription: Subscription;
 
-    transactions: any [];
+    transactions: any[];
     transactionsSubscription: Subscription;
 
-    user:any;
+    user: any;
 
     constructor(private authService: AuthService,
-                private _clipboardService: ClipboardService,
-                private serviceBalance: BalanceService,
-                private servicePayment: PaymentService,
-                private serviceTransaction: TransactionService,
-                private loading: LoadingService,
-                private rotuer: Router) {
+        private toastSearvice: ToastService,
+        private _clipboardService: ClipboardService,
+        private serviceBalance: BalanceService,
+        private servicePayment: PaymentService,
+        private serviceTransaction: TransactionService,
+        private loading: LoadingService,
+        private rotuer: Router) {
     }
 
     ngOnInit(): void {
@@ -84,12 +86,13 @@ export class HomePage implements OnInit, OnDestroy {
         await this.rotuer.navigateByUrl('/auth/login').then();
     }
 
-    goToTransferPage(){
+    goToTransferPage() {
         this.rotuer.navigateByUrl('/transfer').then();
     }
 
-    onCopy(){
-      this._clipboardService.copyFromContent(this.user.code)
+    onCopy() {
+        this._clipboardService.copyFromContent(this.user.code);
+        this.toastSearvice.info('codigo copiado', 500);
     }
 
     ngOnDestroy(): void {

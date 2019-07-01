@@ -11,22 +11,19 @@
 
 <ion-content>
 
-    <ion-card class="welcome-card" *ngIf="user">
+    <ion-card class="code-card" *ngIf="user">
         <ion-card-header>
             <ion-card-title>{{user.name}}</ion-card-title>
         </ion-card-header>
         <ion-card-content>
-            <div>
-                <span><b>{{user.code}}</b></span>
-                <ion-button (click)="onCopy()" float-right size="small">
-                    <ion-icon name="copy"></ion-icon>
-                </ion-button>
-                <ion-button float-right  size="small">
-                     <ion-icon name="share"></ion-icon>
+            <div (click)="onCopy()">
+                <span class="code">{{user.code}}</span>
+                <ion-button float-right size="small">
+                    <ion-icon name="share"></ion-icon>
                 </ion-button>
             </div>
             <small>utiliza este codigo para hacer transferencias</small>
-            </ion-card-content>
+        </ion-card-content>
     </ion-card>
 
     <ion-card class="welcome-card">

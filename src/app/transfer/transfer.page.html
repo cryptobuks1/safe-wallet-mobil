@@ -72,18 +72,18 @@
     </ion-card>
 
     <ion-card *ngIf="beneficiary">
+        <ion-card-header>
+            <ion-button float-right fill="clear" (click)="onAddDirectory()">
+                <ion-icon name="person-add"></ion-icon>
+            </ion-button>
+        </ion-card-header>
         <ion-card-content>
           <ion-item>
             <div text-wrap>
-                <p> 
                   {{beneficiary.name}} 
                   <br/>
                   <small>{{beneficiary.code}}</small>
-                </p>
             </div>
-            <ion-button slot="end">
-                <ion-icon name="person-add"></ion-icon>
-            </ion-button>
           </ion-item>       
         </ion-card-content>
     </ion-card>

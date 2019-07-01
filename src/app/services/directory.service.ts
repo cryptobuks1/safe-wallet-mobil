@@ -3,15 +3,17 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 import { MySubject } from './my-subject';
+import { Storage } from '@ionic/storage';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DirectoryService {
-
+    
     _select: MySubject<any> = new MySubject();
+    _directory: MySubject<any> = new MySubject();
 
-	constructor(private http: HttpClient) {
+	constructor(private http: HttpClient, private storage: Storage) {
 	}
 
     get select(){
@@ -22,13 +24,21 @@ export class DirectoryService {
         this._select.next(item);
     }
 
-    directory(): Observable<any> {
-    	console.log('tesssssss')
+    get directory() {
+        this._directory.asObservable();
+    }
+
+    loadDirectory(): Observable<any> {
         return this.http.get(environment.server + '/directories');
     }
 
     add(value): Observable<any> {
         return this.http.post(environment.server + '/directories',value);
+    }
+
+    async realodDirectory() {
+        const directory = await this.storage.get('safe:@directory') as any[];
+        this._directory.next(directory);
     }
 
     remove(id): Observable<any> {

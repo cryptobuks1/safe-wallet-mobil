@@ -109,6 +109,12 @@ export class TransferPage implements OnInit, OnDestroy {
         await alert.present();
     }
 
+    onAddDirectory(){
+        this.directoryService.add(this.beneficiary).subscribe(d => {
+            this.directoryService.realodDirectory();
+        })
+    }
+
     onOpenDirectory(){
         this.menu.open('right');
     }
