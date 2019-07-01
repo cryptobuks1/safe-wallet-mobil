@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {LoadingController} from '@ionic/angular';
+import {Observable} from 'rxjs';
 
 @Injectable({
     providedIn: 'root'

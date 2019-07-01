@@ -6,6 +6,7 @@ import {Subscription} from 'rxjs';
 import {BalanceService} from '../services/balance.service';
 import {PaymentService} from '../services/payment.service';
 import {TransactionService} from '../services/transaction.service';
+import {ClipboardService} from 'ngx-clipboard'
 
 @Component({
     selector: 'app-home',
@@ -26,6 +27,7 @@ export class HomePage implements OnInit, OnDestroy {
     user:any;
 
     constructor(private authService: AuthService,
+                private _clipboardService: ClipboardService,
                 private serviceBalance: BalanceService,
                 private servicePayment: PaymentService,
                 private serviceTransaction: TransactionService,
@@ -82,11 +84,18 @@ export class HomePage implements OnInit, OnDestroy {
         await this.rotuer.navigateByUrl('/auth/login').then();
     }
 
+    goToTransferPage(){
+        this.rotuer.navigateByUrl('/transfer').then();
+    }
+
+    onCopy(){
+      this._clipboardService.copyFromContent(this.user.code)
+    }
+
     ngOnDestroy(): void {
         this.balanceSubscription.unsubscribe();
         this.paymentsSubscription.unsubscribe();
         this.transactionsSubscription.unsubscribe();
     }
-
 
 }

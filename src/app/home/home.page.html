@@ -17,11 +17,11 @@
         </ion-card-header>
         <ion-card-content>
             <div>
-                <span> <b>{{user.code}}</b></span>
-                <ion-button float-right>
+                <span><b>{{user.code}}</b></span>
+                <ion-button (click)="onCopy()" float-right size="small">
                     <ion-icon name="copy"></ion-icon>
                 </ion-button>
-                <ion-button float-right>
+                <ion-button float-right  size="small">
                      <ion-icon name="share"></ion-icon>
                 </ion-button>
             </div>
@@ -49,8 +49,7 @@
         <ion-fab-list side="top">
             <div class="fab-list">
                 <ion-label>Transfer</ion-label>
-                <ion-fab-button (click)="transfer()" color="primary" size="small" routerDirection="root"
-                                routerLink="/transfer">
+                <ion-fab-button (click)="transfer()" color="primary" size="small" (click)="goToTransferPage()">
                     <ion-icon ios="ios-send" md="md-send"></ion-icon>
                 </ion-fab-button>
             </div>

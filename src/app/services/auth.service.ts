@@ -1,9 +1,9 @@
-import {Injectable} from '@angular/core';
-import {Storage} from '@ionic/storage';
-import {Observable} from 'rxjs';
-import {HttpClient} from '@angular/common/http';
-import {environment} from '../../environments/environment';
-import {MySubject} from '../share/my-subject';
+import { Injectable } from '@angular/core';
+import { Storage } from '@ionic/storage';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
+import { MySubject } from '../share/my-subject';
 
 @Injectable({
     providedIn: 'root'

@@ -13,6 +13,7 @@ import {FormsModule, FormBuilder} from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {Device} from '@ionic-native/device/ngx';
 import {InterceptorService} from './auth/interceptor.service';
+import { ClipboardModule } from 'ngx-clipboard';
 
 @NgModule({
     declarations: [AppComponent],
@@ -23,6 +24,7 @@ import {InterceptorService} from './auth/interceptor.service';
         IonicStorageModule.forRoot(),
         AppRoutingModule,
         FormsModule,
+        ClipboardModule,
         HttpClientModule,
     ],
     providers: [

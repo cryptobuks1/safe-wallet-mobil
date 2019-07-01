@@ -10,7 +10,7 @@ export class TransactionService {
 
     constructor(private http: HttpClient) {
     }
-
+ 
     transactions(): Observable<any> {
         return this.http.get(environment.server + '/transactions');
     }

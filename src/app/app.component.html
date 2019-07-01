@@ -19,6 +19,30 @@
         </ion-list>
       </ion-content>
     </ion-menu>
+
+    <ion-menu side="end" type="push" menuId="right" *ngIf="directory"> 
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Directory. </ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+          <ion-item *ngFor="let dir of directory">
+              <div text-wrap>
+                <p> 
+                  {{dir.name}} 
+                  <br/>
+                  <small>{{dir.code}}</small>
+                </p>
+              </div>
+              <ion-button slot="end" (click)="onSelect(dir)">
+                <ion-icon name="add"></ion-icon>
+              </ion-button>
+          </ion-item>           
+      </ion-content>
+    </ion-menu>
+
+
     <ion-router-outlet main></ion-router-outlet>
   </ion-split-pane>
 </ion-app>

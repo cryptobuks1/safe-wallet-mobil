@@ -28,7 +28,7 @@ export class InterceptorService implements HttpInterceptor {
         req = req.clone({headers: req.headers.set('Accept', 'application/json')});
 
         return next.handle(req).pipe(tap((data) => {
-            console.log( data);
+            // console.log( data);
         }, (error) => {
             if (error.status === 401 && this.service.isAuthenticated) {
                 console.log(' TOKEN ERROR ');
