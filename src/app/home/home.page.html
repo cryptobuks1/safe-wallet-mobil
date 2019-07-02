@@ -16,8 +16,8 @@
             <ion-card-title>{{user.name}}</ion-card-title>
         </ion-card-header>
         <ion-card-content>
-            <div (click)="onCopy()">
-                <span class="code">{{user.code}}</span>
+            <div>
+                <span (click)="onCopy()" class="code">{{user.code}}</span>
                 <ion-button float-right size="small">
                     <ion-icon name="share"></ion-icon>
                 </ion-button>

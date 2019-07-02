@@ -26,7 +26,7 @@
                             <ion-input formControlName="code" placeholder="Enter Code" type="text" (change)="validateCode()">
                                 
                             </ion-input>
-                            <ion-button slot="end" (click)="onOpenDirectory();">
+                            <ion-button slot="end" (click)="onOpenDirectory();" fill="clear">
                                 <ion-icon name="contacts"></ion-icon>
                             </ion-button>
                         </ion-item>
@@ -72,19 +72,17 @@
     </ion-card>
 
     <ion-card *ngIf="beneficiary">
-        <ion-card-header>
-            <ion-button float-right fill="clear" (click)="onAddDirectory()">
+        <ion-card-content>
+            <ion-button slot="end" fill="clear" (click)="onAddDirectory();">
                 <ion-icon name="person-add"></ion-icon>
             </ion-button>
-        </ion-card-header>
-        <ion-card-content>
-          <ion-item>
-            <div text-wrap>
-                  {{beneficiary.name}} 
-                  <br/>
-                  <small>{{beneficiary.code}}</small>
-            </div>
-          </ion-item>       
+            <ion-item>
+                <div text-wrap>
+                      {{beneficiary.name}} 
+                    <br/>
+                    <small>{{beneficiary.code}}</small>
+                </div>
+            </ion-item>       
         </ion-card-content>
     </ion-card>
 

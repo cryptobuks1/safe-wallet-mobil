@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { TransferService } from '../services/transfer.service';
+import { LoadingService } from '../services/loading.service';
 import { DirectoryService } from '../services/directory.service';
 import { AlertController } from '@ionic/angular';
 import { MenuController } from '@ionic/angular';
@@ -24,12 +25,15 @@ export class TransferPage implements OnInit, OnDestroy {
     beneficiary: any;
     user: any;
     laoding: boolean;
+    directory: any[];
+    dirSub: Subscription;
 
     constructor(private fb: FormBuilder,
         private menu: MenuController,
         private router: Router,
         private alertController: AlertController,
         private authService: AuthService,
+        private loadingService: LoadingService,
         private directoryService: DirectoryService,
         private transferService: TransferService,
         private serviceBalance: BalanceService) {
@@ -59,6 +63,7 @@ export class TransferPage implements OnInit, OnDestroy {
             this.balanceSubscription.unsubscribe();
             this.laoding = false;
         });
+        this.dirSub = this.directoryService.directory.subscribe( (d: any[]) => this.directory = d);
     }
 
     onSubmit() {
@@ -109,10 +114,11 @@ export class TransferPage implements OnInit, OnDestroy {
         await alert.present();
     }
 
-    onAddDirectory(){
-        this.directoryService.add(this.beneficiary).subscribe(d => {
-            this.directoryService.realodDirectory();
-        })
+    async onAddDirectory() {
+        const message = 'cargando...';
+        const loading = await this.loadingService.loading({message});
+        await this.directoryService.add({ user_id: this.beneficiary.id }).toPromise();
+        await loading.dismiss();
     }
 
     onOpenDirectory(){
@@ -137,6 +143,9 @@ export class TransferPage implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
+        if(this.dirSub){
+            this.dirSub.unsubscribe();
+        }
          console.log('OnDestroy');
     }
 

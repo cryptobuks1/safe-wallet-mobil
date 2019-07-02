@@ -10,7 +10,7 @@ export class LoadingService {
     constructor(private loadingController: LoadingController) {
     }
 
-    async loading({message }) {
+    async loading({message}) {
         const loading = await this.loadingController.create({message, spinner: 'crescent'});
         await loading.present();
         return loading;

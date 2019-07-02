@@ -3,10 +3,12 @@ import { LoadingController, Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AuthService } from './services/auth.service';
+import { LoadingService } from './services/loading.service';
 import { DirectoryService } from './services/directory.service';
 import { ToastService } from './services/toast.service';
 import { Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
+import { CacheService } from 'ionic-cache';
 
 @Component({
     selector: 'app-root',
@@ -30,15 +32,18 @@ export class AppComponent implements OnInit {
     directory: any[];
 
     constructor(private platform: Platform,
+                private cache: CacheService,
                 private menu: MenuController,
                 private route: Router,
-                private toastService: ToastService,
                 private loadingController: LoadingController,
+                private loadingService: LoadingService,
+                private toastService: ToastService,
                 private service: AuthService,
                 private directoryService: DirectoryService,
                 private splashScreen: SplashScreen,
                 private statusBar: StatusBar) {
         this.initializeApp().then();
+        cache.setDefaultTTL(60 * 60);
     }
 
     async initializeApp() {
@@ -53,15 +58,24 @@ export class AppComponent implements OnInit {
         this.menu.close('right');
     }
 
+    async onRemoveDirectory(item) {
+        const message = 'cargando...';
+        const loading = await this.loadingService.loading({message});
+        await this.directoryService.remove(item.id).toPromise();
+        await loading.dismiss();
+    }
+
     ngOnInit(): void {
+        this.directoryService.directory.subscribe( (data: any ) => {
+            this.directory = data as any[];
+            console.log( 'load directory', data)
+        }, (error) => {
+            console.log(error);
+            this.toastService.error('error al tratar de cargar el directorio');
+        });
         this.service.userObservable().subscribe( ( data: any) => {
             this.user = data;
-            this.directoryService.directory().subscribe( (data: any ) => {
-                this.directory = data.data as any[];
-            }, (error) => {
-                console.log(error);
-                this.toastService.error('error al tratar de cargar el directorio');
-            });
+            this.directoryService.realodDirectory();
         });
     }
 
